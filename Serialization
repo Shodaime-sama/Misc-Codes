@@ -1,0 +1,37 @@
+ #region Object To XML Serialization
+        public static string SerializeObjectToString<T>(T ToSerialize)
+        {
+            try
+            {
+                if (ToSerialize == null) { return null; }
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                StringWriter textWriter = new StringWriter();
+                xmlSerializer.Serialize(textWriter, ToSerialize);
+                return textWriter.ToString();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+        #endregion
+        
+        
+        
+        public static T DeserializeStringToObject<T>(string ToDeserialize)
+        {
+            try
+            {
+                if (ToDeserialize == string.Empty) { return default(T); }
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                StringReader textReader = new StringReader(ToDeserialize);
+                return (T)xmlSerializer.Deserialize(textReader);
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
+        
+        
+        
