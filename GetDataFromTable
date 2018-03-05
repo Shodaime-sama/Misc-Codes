@@ -1,0 +1,10 @@
+ public DataTable GetDataTable(string _Query)
+        {
+            DataTable _DataTable = new DataTable();
+            SqlConnection _SqlConnection = new SqlConnection(GlobalProperties.GlobalConnection);
+            SqlCommand _SqlCommand = new SqlCommand(_Query, _SqlConnection);
+            SqlDataAdapter _SqlDataAdapter = new SqlDataAdapter(_SqlCommand);
+            _SqlDataAdapter.Fill(_DataTable);
+
+            return _DataTable;
+        }
