@@ -1,0 +1,16 @@
+public static TableNotes ConvertToObjectForNotes(object _Object)
+        {
+            TableNotes _Notes = new TableNotes();
+            DataTable _DT = (DataTable)_Object;
+
+            foreach (DataRow row in _DT.Rows)
+            {
+                string value = row.ItemArray[1].ToString();
+
+                PropertyInfo propertyInfo = _TableNotes.GetType().GetProperty(row.ItemArray[0].ToString());
+                if (propertyInfo == null) { continue; }
+                propertyInfo.SetValue(_Notes, Convert.ChangeType(value, propertyInfo.PropertyType), null);
+            }
+
+            return _Notes;
+        }
